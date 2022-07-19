@@ -1,5 +1,6 @@
 services:
   api:
+    container_name: email_client_api
     build:
       dockerfile: Dockerfile
       context: ./api
@@ -9,6 +10,21 @@ services:
       - ./api/node_modules:/usr/src/api/node_modules
     env_file:
     - .env
-    command: npm run start:dev
+    command: npm run start:debug
     ports:
-      - 3000:3000
+      - '${API_PORT}:3000'
+  postgres:
+    container_name: email_client_db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '${POSTGRES_PORT}:5432'
+    volumes:
+      - email-client-db:/var/lib/postgresql/data
+volumes:
+  email-client-db:
+
