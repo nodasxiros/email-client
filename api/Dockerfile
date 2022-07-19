@@ -4,7 +4,7 @@ WORKDIR /usr/src/api
 
 COPY --chown=node:node package*.json ./
 
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 COPY --chown=node:node . .
 
