@@ -11,11 +11,10 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOne(email);
-    if (user && user.password === password) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
+    if (user && user.password === password) 
+      return user.toJSON();
+    else
+      return null;
   }
 
   async login(user: any) {
