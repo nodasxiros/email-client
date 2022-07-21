@@ -1,34 +1,50 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { MailService } from 'src/mail/mail.service';
 import { CreateEmailDto } from './dto/create-email.dto';
 import { UpdateEmailDto } from './dto/update-email.dto';
+import { Email } from './entities/email.entity';
 
 @Injectable()
 export class EmailsService {
   constructor(
-    private readonly mailService: MailService
+    private readonly mailService: MailService,
+    @InjectModel(Email)
+    private emailModel: typeof Email
   ) {}
-  create(createEmailDto: CreateEmailDto) {
-    return 'This action adds a new email';
+  create(createEmailDto: CreateEmailDto): Promise<Email> {
+    return this.emailModel.create(createEmailDto);
   }
 
-  findAll() {
-    return `This action returns all emails`;
+  findAll(): Promise<Email[]> {
+    return this.emailModel.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} email`;
+  findOne(address: string): Promise<Email> {
+    return this.emailModel.findOne({
+      where: {
+        address,
+      }
+    });
   }
 
-  update(id: number, updateEmailDto: UpdateEmailDto) {
-    return `This action updates a #${id} email`;
+  update(id: number, updateEmailDto: UpdateEmailDto): Promise<number[]> {
+    return this.emailModel.update(updateEmailDto, {
+      where: {
+        id
+      }
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} email`;
+  remove(id: number): Promise<number> {
+    return this.emailModel.destroy({
+      where: {
+        id
+      }
+    });
   }
 
-  send() {
+  send(): Promise<any> {
     return this.mailService.send()
   }
 }
