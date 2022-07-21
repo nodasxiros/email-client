@@ -8,6 +8,7 @@ import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
 import { EmailsModule } from './emails/emails.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { EmailsModule } from './emails/emails.module';
     UsersModule,
     MailModule,
     EmailsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
