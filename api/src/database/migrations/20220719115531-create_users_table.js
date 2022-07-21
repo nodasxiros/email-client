@@ -25,6 +25,6 @@ module.exports = {
   },
 
   async down (queryInterface) {
-     return queryInterface.dropTable('beers');
+     return queryInterface.dropTable('users');
   }
 };
