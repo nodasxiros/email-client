@@ -1,0 +1,18 @@
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+
+interface Props {
+  isLoggedIn?: boolean
+  children: any
+}
+
+const AuthRoute: React.FC<Props> = ({ isLoggedIn = false, children }) => {
+  if (!isLoggedIn)
+  return (
+    <Navigate to="/" replace />
+  )
+
+  return children;
+}
+
+export default AuthRoute;
