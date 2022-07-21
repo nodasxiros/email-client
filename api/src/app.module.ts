@@ -10,6 +10,8 @@ import { MailModule } from './mail/mail.module';
 import { EmailsModule } from './emails/emails.module';
 import { MessagesModule } from './messages/messages.module';
 import { BullModule } from '@nestjs/bull';
+import { Email } from './emails/entities/email.entity';
+import { Message } from './messages/entities/message.entity';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { BullModule } from '@nestjs/bull';
       },
       models: [
         User,
+        Email,
+        Message,
       ],
     }),
     AuthModule,
@@ -38,7 +42,7 @@ import { BullModule } from '@nestjs/bull';
         host: 'email_client_redis',
         port: 6379,
       },
-    })
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
