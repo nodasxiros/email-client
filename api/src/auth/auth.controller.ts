@@ -1,4 +1,4 @@
-import { Controller, Request, Post, UseGuards, Get, Body } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Body, HttpStatus, HttpException } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -24,7 +24,13 @@ export class AuthController {
   }
 
   @Post('signup')
-  signup(@Body() data: CreateUserDto): Promise<User> {
-    return this.authService.signup(data);
+  async signup(@Body() data: CreateUserDto): Promise<LoginRes> {
+    try {
+      const user = await this.authService.signup(data);
+      const login = await this.authService.login(user);
+      return login;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

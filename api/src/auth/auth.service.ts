@@ -28,6 +28,6 @@ export class AuthService {
   }
 
   signup(data: CreateUserDto): Promise<User> {
-    return this.usersService.create(data);
+    return this.usersService.findOrCreate(data);
   }
 }

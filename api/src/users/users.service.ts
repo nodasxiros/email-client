@@ -43,4 +43,16 @@ export class UsersService {
       }
     });
   }
+
+  findOrCreate(createUserDto: CreateUserDto): Promise<User | any> {
+    return this.userModel.findOrCreate({
+      where: {
+        email: createUserDto.email
+      },
+      defaults: {
+        email: createUserDto.email,
+        password: createUserDto.password
+      }
+    })
+  }
 }
