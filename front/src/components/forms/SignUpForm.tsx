@@ -28,8 +28,7 @@ const SignUpForm: React.FC = () => {
     try {
       e.preventDefault()
       const { data: { access_token }} = await client.post(`/auth/signup`, { email, password });
-      console.log(access_token);
-      localStorage.setItem('access_token', access_token)
+      localStorage.setItem('access_token', access_token);
     } catch (error: any) {
       const { message: [errorMessage]} = error.response.data;
       setError(`${error.message}: ${errorMessage}`);
@@ -37,8 +36,8 @@ const SignUpForm: React.FC = () => {
   }
 
   useEffect(() => {
-
-  }, [email, password])
+    setIsValid(Boolean(email && password));
+  }, [email, password, email, password])
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -63,7 +62,7 @@ const SignUpForm: React.FC = () => {
         />
       </Form.Group>
       { error && <Alert variant={'danger'}>{error}</Alert>}
-      <Button variant="primary" type="submit">
+      <Button disabled={!isValid} variant="primary" type="submit">
         Submit
       </Button>
     </Form>
