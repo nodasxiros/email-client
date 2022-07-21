@@ -16,10 +16,9 @@ function App() {
     <BrowserRouter>
       <div>
         <div className="header">
-          {/* Header */}
           <BaseHeader />
         </div>
-        <div>
+        <div className="main-content">
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<SignIn />} path="/signin" />

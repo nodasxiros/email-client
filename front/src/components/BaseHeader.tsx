@@ -3,17 +3,17 @@ import { NavLink } from 'react-router-dom';
 
 const BaseHeader: React.FC = () => {
   return (
-    <div>
-      <NavLink to="/signup">
+    <div className="links">
+      <NavLink to="/signup" className={({ isActive }) => `link ${ isActive ? 'active' : ''}`}>
         Sign up
       </NavLink>
-      <NavLink to="/signin">
+      <NavLink to="/signin" className={({ isActive }) => `link ${ isActive ? 'active' : ''}`}>
         Sign in
       </NavLink>
-      <NavLink to="/">
+      <NavLink to="/" className={({ isActive }) => `link ${ isActive ? 'active' : ''}`}>
         Home
       </NavLink>
-      <NavLink to="/dashboard">
+      <NavLink to="/dashboard" className={({ isActive }) => `link ${ isActive ? 'active' : ''}`}>
         Dashboard
       </NavLink>
     </div>
