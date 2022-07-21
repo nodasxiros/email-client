@@ -2,7 +2,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
-
+import { BullModule } from '@nestjs/bull';
+import { EmailsConsumer } from './mail.consumer';
 
 @Module({
   imports: [
@@ -20,9 +21,16 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
           },
         },
       })
+    }),
+    BullModule.registerQueue({
+      name: 'emails_queue',
+        redis: {
+          host: 'email_client_redis',
+          port: 6379,
+        },
     })
   ],
-  providers: [MailService],
+  providers: [MailService, EmailsConsumer],
   exports: [MailService],
 })
 export class MailModule {}

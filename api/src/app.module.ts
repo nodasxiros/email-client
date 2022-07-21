@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
 import { EmailsModule } from './emails/emails.module';
 import { MessagesModule } from './messages/messages.module';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -32,6 +33,12 @@ import { MessagesModule } from './messages/messages.module';
     MailModule,
     EmailsModule,
     MessagesModule,
+    BullModule.forRoot({
+      redis: {
+        host: 'email_client_redis',
+        port: 6379,
+      },
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

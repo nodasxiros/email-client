@@ -3,7 +3,6 @@ import { EmailsService } from './emails.service';
 import { CreateEmailDto } from './dto/create-email.dto';
 import { UpdateEmailDto } from './dto/update-email.dto';
 import { Email } from './entities/email.entity';
-Email
 
 @Controller('emails')
 export class EmailsController {
