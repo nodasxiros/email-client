@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
+import { Message } from './entities/message.entity';
 
 @Injectable()
 export class MessagesService {
-  create(createMessageDto: CreateMessageDto) {
-    return 'This action adds a new message';
+  constructor(
+    @InjectModel(Message)
+    private messageModel: typeof Message
+  ) {}
+  create(createMessageDto: CreateMessageDto): Promise<Message> {
+    return this.messageModel.create(createMessageDto);
   }
 
-  findAll() {
-    return `This action returns all messages`;
+  findAll(): Promise<Message[]> {
+    return this.messageModel.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} message`;
+  findOne(id: number): Promise<Message> {
+    return this.messageModel.findOne({
+      where: {
+        id,
+      }
+    });
   }
 
-  update(id: number, updateMessageDto: UpdateMessageDto) {
-    return `This action updates a #${id} message`;
+  update(id: number, updateMessageDto: UpdateMessageDto): Promise<number[]> {
+    return this.messageModel.update(updateMessageDto, {
+      where: {
+        id,
+      }
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} message`;
+  remove(id: number): Promise<number> {
+    return this.messageModel.destroy({
+      where: {
+        id
+      }
+    });
   }
 }
