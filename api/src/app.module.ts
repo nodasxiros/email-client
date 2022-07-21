@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { MailModule } from './mail/mail.module';
+import { EmailsModule } from './emails/emails.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     AuthModule,
     UsersModule,
+    MailModule,
+    EmailsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
