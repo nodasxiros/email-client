@@ -11,6 +11,15 @@ module.exports = {
           unique: true,
           primaryKey: true,
         },
+        message: {
+          type: Sequelize.TEXT,
+          allowNull: false,
+          defaultValue: ''
+        },
+        isSent: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        }
       }
     );
   },
