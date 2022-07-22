@@ -27,10 +27,10 @@ export class EmailsService {
     });
   }
 
-  update(id: number, updateEmailDto: UpdateEmailDto): Promise<number[]> {
+  update(address: string, updateEmailDto: UpdateEmailDto): Promise<number[]> {
     return this.emailModel.update(updateEmailDto, {
       where: {
-        id
+        address
       }
     });
   }

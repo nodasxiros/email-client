@@ -24,18 +24,17 @@ export class EmailsController {
 
   @Post('send')
   send(@Body() body: any): Promise<any> {
-    console.log(body);
     return this.mailService.send(body)
   }
 
   @Get(':id')
-  findOne(@Param('address') address: string): Promise<Email> {
+  findOne(@Param('id') address: string): Promise<Email> {
     return this.emailsService.findOne(address);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateEmailDto: UpdateEmailDto): Promise<number[]> {
-    return this.emailsService.update(+id, updateEmailDto);
+    return this.emailsService.update(id, updateEmailDto);
   }
 
   @Delete(':id')
