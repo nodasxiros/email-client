@@ -8,7 +8,6 @@ import { Email } from './entities/email.entity';
 @Injectable()
 export class EmailsService {
   constructor(
-    private readonly mailService: MailService,
     @InjectModel(Email)
     private emailModel: typeof Email
   ) {}
@@ -42,9 +41,5 @@ export class EmailsService {
         id
       }
     });
-  }
-
-  send(): Promise<any> {
-    return this.mailService.send()
   }
 }

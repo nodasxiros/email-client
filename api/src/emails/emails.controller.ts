@@ -3,11 +3,13 @@ import { EmailsService } from './emails.service';
 import { CreateEmailDto } from './dto/create-email.dto';
 import { UpdateEmailDto } from './dto/update-email.dto';
 import { Email } from './entities/email.entity';
+import { MailService } from 'src/mail/mail.service';
 
 @Controller('emails')
 export class EmailsController {
   constructor(
     private readonly emailsService: EmailsService,
+    private readonly mailService: MailService,
   ) {}
 
   @Post()
@@ -21,8 +23,9 @@ export class EmailsController {
   }
 
   @Post('send')
-  send(): Promise<any> {
-    return this.emailsService.send()
+  send(@Body() body: any): Promise<any> {
+    console.log(body);
+    return this.mailService.send(body)
   }
 
   @Get(':id')
