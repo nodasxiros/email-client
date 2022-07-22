@@ -1,7 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
+HttpStatus
 
 @Injectable()
 export class MailService {
@@ -13,34 +14,28 @@ export class MailService {
 
   private readonly logger = new Logger(MailService.name);
 
-  public send(): any {
+  public send(body: any): any {
     try {
-      this.emailQueue.add('send_bulk_emails',{
-        foo: 'bar'
-      })
-      this.emailQueue.add('send_bulk_emails',{
-        foo: 'bar2'
-      })
-      this.emailQueue.add('send_bulk_emails',{
-        foo: 'bar3'
-      })
-      this.emailQueue.add('send_bulk_emails',{
-        foo: 'bar4'
-      })
+      body.emails.map(
+        mail => this
+          .emailQueue
+          .add(
+            'send_bulk_emails',
+            this
+              .mailService
+              .sendMail({
+                to: mail,
+                subject: 'Email from email client ✔',
+                html: `<p>${body.message}</p>`,
+              })
+          )
+      );
       return {
-        test: 'test'
+        success: true
       }
-      // return this
-      //   .mailService
-      //   .sendMail({
-      //     to: ['nodasxiros@gmail.com', ],
-      //     subject: 'Testing Nest MailerModule ✔',
-      //     text: 'welcome',
-      //     html: '<b>welcome</b>',
-      //   });   
     } catch (error) {
       this.logger.error(error.message);
-      throw new Error(error);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
