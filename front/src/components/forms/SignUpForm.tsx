@@ -5,8 +5,13 @@ import {
   Form,
 } from 'react-bootstrap';
 import client from '../../client';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAccessToken } from '../../features/auth/authSlice';
 
 const SignUpForm: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -29,6 +34,8 @@ const SignUpForm: React.FC = () => {
       e.preventDefault()
       const { data: { access_token }} = await client.post(`/auth/signup`, { email, password });
       localStorage.setItem('access_token', access_token);
+      dispatch(setAccessToken(access_token));
+      navigate('/dashboard');
     } catch (error: any) {
       const { message: [errorMessage]} = error.response.data;
       setError(`${error.message}: ${errorMessage}`);
