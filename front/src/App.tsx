@@ -6,10 +6,9 @@ import SignIn from './components/pages/SignIn';
 import SignUp from './components/pages/SignUp';
 import Dashboard from './components/pages/Dashboard';
 import AuthRoute from './components/auth';
-
+import AddEditEmailForm from './components/pages/EmailForm';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 function App() {
   return (
@@ -23,11 +22,22 @@ function App() {
             <Route element={<Home />} path="/" />
             <Route element={<SignIn />} path="/signin" />
             <Route element={<SignUp />} path="/signup" />
+            <Route element={<SignUp />} path="/signup" />
             <Route element={
               <AuthRoute>
                 <Dashboard />
               </AuthRoute>
             } path="/dashboard" />
+            <Route element={
+              <AuthRoute>
+                <AddEditEmailForm />
+              </AuthRoute>
+            } path="/dashboard/emails/:id" />
+            <Route element={
+              <AuthRoute>
+                <AddEditEmailForm />
+              </AuthRoute>
+            } path="/dashboard/emails/create" />
           </Routes>
         </div>
       </div>

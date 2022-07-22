@@ -6,6 +6,7 @@ export interface Email {
 export type RowProp = {
   email: Email
   handleChange: (e: Email) => void
+  handleListChange: () => void
 }
 
 export interface Message{

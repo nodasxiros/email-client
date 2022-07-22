@@ -44,7 +44,7 @@ const SignUpForm: React.FC = () => {
 
   useEffect(() => {
     setIsValid(Boolean(email && password));
-  }, [email, password, email, password])
+  }, [email, password])
 
   return (
     <Form onSubmit={handleSubmit}>

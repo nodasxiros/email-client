@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent, SyntheticEvent, useRef } from 'react';
-import { Form, Table, Button, Modal } from 'react-bootstrap';
+import { Form, Button, Modal } from 'react-bootstrap';
 import client from '../../client';
 import { Email, Message } from '../../types';
 

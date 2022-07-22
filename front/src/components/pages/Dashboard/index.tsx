@@ -1,23 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Table, Button, Alert } from 'react-bootstrap';
+import { Form, Table, Button, Alert, ButtonGroup } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import client from '../../../client';
 import { Email, RowProp } from '../../../types';
 import EmailForm from '../../forms/EmailForm';
-
-const TableRow: React.FC<RowProp> = ({ email, handleChange}) => {
-  return (
-    <tr>
-      <td>
-        <Form.Check 
-          type='checkbox'
-          onChange={() => handleChange(email)}
-        />
-      </td>
-      <td>{ email.id }</td>
-      <td>{ email.address }</td>
-    </tr>
-  );
-}
+import TableRow from './TableRow'
 
 const Dashboard: React.FC = () => {
   const [emails, setEmails] = useState<Email[]>([]);
@@ -56,6 +43,11 @@ const Dashboard: React.FC = () => {
           <Button variant="primary" onClick={handleShow}>
             Send Email
           </Button>
+          <NavLink to="emails/create">
+            <Button variant="primary">
+              Create Email
+            </Button>
+          </NavLink>
         </div>
       </div>
       <Table responsive>
@@ -67,7 +59,7 @@ const Dashboard: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          { emails.map((email, i) => <TableRow key={i} email={email} handleChange={() => handleSelectedChange(email)}/>) }
+          { emails.map((email, i) => <TableRow key={i} email={email} handleChange={() => handleSelectedChange(email)} handleListChange={getEmails} />) }
         </tbody>
       </Table>
       <EmailForm
