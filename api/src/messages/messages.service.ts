@@ -41,4 +41,12 @@ export class MessagesService {
       }
     });
   }
+
+  findNotSent(): Promise<Message> {
+    return this.messageModel.findOne({
+      where: {
+        isSent: false
+      }
+    });
+  }
 }
