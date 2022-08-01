@@ -28,7 +28,7 @@ services:
       target: development
     volumes:
       - ./api:/usr/src/api
-      - ./api/node_modules:/usr/src/api/node_modules
+      - api_node_modules:/usr/src/api/node_modules
     env_file:
     - .env
     command: npm run start:debug
@@ -56,4 +56,5 @@ services:
 volumes:
   email-client-db:
   redis-db:
+  api_node_modules:
 

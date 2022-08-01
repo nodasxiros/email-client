@@ -4,6 +4,8 @@ WORKDIR /usr/src/api
 
 COPY --chown=node:node package*.json ./
 
+RUN npm i -g @nestjs/cli
+
 RUN npm ci --legacy-peer-deps
 
 COPY --chown=node:node . .

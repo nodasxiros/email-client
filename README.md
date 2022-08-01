@@ -22,10 +22,9 @@ $ docker compose up --build
 ### Run db migrations and seeders
 ```bash
 # Run migrations
-$ cd api/
-$ npx sequelize-cli db:migrate
+$ docker exec email_client_api npx sequelize-cli db:migrate
 # Run seeders
-$ npx sequelize-cli db:seed:all
+$ docker exec email_client_api npx sequelize-cli db:seed:all
 ```
 ## License
 
